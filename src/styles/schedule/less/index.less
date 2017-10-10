@@ -1,0 +1,236 @@
+@navy: #1ab394;
+@gray: #c2c2c2;
+@gray-dark: darken(@gray, 30%);
+@green: #03c90c;
+@yellow: #f8ac59;
+@red: #c70000;
+
+@level-colors: @gray, @green, @green, @green, @green, @yellow, @yellow, @yellow, @yellow, @yellow, @red, @red, @red, @red;
+
+.schedule-subjects-levels(@class, @n, @i:0) when (@i =< @n) {
+  //.schedule__subject-header_level_@{i} {
+  .@{class}_@{i} {
+    border-left: 2px solid extract(@level-colors, (@i+1)) !important;
+  }
+
+  .schedule-subjects-levels(@class, @n, (@i+1));
+}
+
+.schedule-accordion-item-header() {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.schedule-accordion-item-header-title() {
+  margin: 0 !important;
+}
+
+.schedule {
+  &__subject-header {
+    .schedule-accordion-item-header();
+
+    &-title {
+      .schedule-accordion-item-header-title()
+    }
+  }
+
+  &__subject-teachers {
+    padding: 5px;
+  }
+
+  &__subject-teacher {
+    &_progress-bar {
+      position: relative;
+      text-align: center;
+      margin-bottom: 5px;
+      cursor: grab;
+      cursor: -webkit-grab;
+      cursor: -moz-grab;
+    }
+
+    &-name {
+      position: absolute;
+      width: 100%;
+      color: #333;
+    }
+  }
+
+  &__room-category-header {
+    .schedule-accordion-item-header();
+
+    &-title {
+      .schedule-accordion-item-header-title()
+    }
+  }
+
+  &__room {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    cursor: grab;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+
+    &-hr {
+      border-top: 1px solid @gray;
+      margin: 5px 0;
+    }
+
+    &-class-number {
+      margin: 0 3px;
+      color: @gray;
+
+      &_busy {
+        color: @gray-dark; //#5e5e5e;
+      }
+    }
+
+    &-shift-row {
+      &-title {
+        padding: 0 5px 0 0;
+      }
+    }
+  }
+
+  &__day-selector {
+    margin: 10px 5px;
+    text-align: center;
+
+    &-item {
+      color: @gray-dark;
+      margin: 0 5px;
+
+      &:active,
+      &:visited {
+        color: @gray-dark;
+      }
+
+      &:hover {
+        color: darken(@gray-dark, 20%);
+      }
+
+      &_active {
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__school_category-selector{
+    margin: 10px 0;
+    text-align: center;
+  }
+}
+
+.schedule-subjects-levels(schedule__subject-header_level, 13);
+
+.schedule-table {
+  &_hidden {
+    display: none;
+  }
+
+  &__day-row-cell {
+    text-align: center;
+  }
+
+  &__groups-row {
+    &-cell {
+      text-align: center;
+    }
+  }
+
+  &__shift-row{
+    background: #fafafa;
+    text-align: center;
+    color: @gray-dark;
+  }
+
+  &__classes-row {
+    &-cell {
+      position: relative;
+      height: 60px;
+      padding: 1px !important;
+    }
+  }
+}
+
+.schedule-class-item-handler{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 1px;
+
+  &_hovered {
+    background: @navy;
+  }
+
+  &_available {
+    background: desaturate(lighten(@navy, 55%), 30%);
+  }
+}
+
+.schedule-class-item{
+  position: relative;
+  float: left;
+  height: 100%;
+  font-size: 0.85em;
+  background: lighten(@gray, 20%);
+  padding: 0 1px;
+  cursor: grab;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+
+  &_hovered {
+    background: @navy;
+    color: white;
+  }
+
+  &_available {
+    background: desaturate(lighten(@navy, 50%), 30%);
+  }
+
+  &__subject{
+    width: 100%;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__teacher{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__room{
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+  }
+}
+
+.schedule-subjects-levels(schedule-class-item_level, 13);
+
+.progress-bar {
+  &_color_gray {
+    background-color: #ababab;
+  }
+}
+
+.schedule-trash-zone{
+  display: none;
+  background-color: @red;
+  color: white;
+  position: absolute;
+  padding: 30px 40px;
+  font-size: 2.5em;
+  box-shadow: 0px 0px 20px 2px #888888;
+  top: 50px;
+  left: 50px;
+
+  &_visible{
+    display: block;
+  }
+}
